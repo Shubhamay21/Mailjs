@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mail-form
+        {
+        background: whitesmoke;
+        padding: 100px 400px;
+        height: 400px;
+
+        }
+        input[type="text"] {
+            padding: 5px 70px;
+        }
+        input[type="email"] {
+            padding: 5px 70px;
+        }
+        input[type="phone"] {
+            padding: 5px 70px;
+        }
+        input[type="submit"]
+        {
+            padding: 5px 135px;
+
+        }
+    </style>
+     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+     <script type="text/javascript">
+      function fun(event)
+        {
+        event.preventDefault();
+        let x = document.forms["myform"]['name','phone','email','add'].value;
+        var name= document.getElementById('name').value;
+        console.log(name);
+        var email= document.getElementById('email').value;
+        console.log(email);
+        var phone= parseInt(document.getElementById('phone').value);
+        console.log(phone);
+        var add= document.getElementById('add').value;
+        console.log(add);
+
+        (function() {
+             // https://dashboard.emailjs.com/admin/account
+             emailjs.init('AVREKmznWUyN0cvwl');
+      })();
+   
+    //set the parameter as per you template parameter[https://dashboard.emailjs.com/templates]
+      var templateParams = {
+        to_name: email,
+        from_name: 'Shubham',
+        message: `User Details
+        name: ${name}
+        email: ${email}
+        phone: ${phone}
+        address: ${add}`
+        
+      };
+    
+      emailjs.send('service_if7iehh', 'template_hloirb9', templateParams)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+          console.log('FAILED...', error);
+        });
+
+      
+    }
+  
+    </script>
+</head>
+<body>
+    <form id="mail-form" name="myform" onsubmit="fun(event)">
+        <!-- <input type="hidden" name="contact_number"> -->
+        <label for="name">Name:<br/>
+           <input type="text" name="name" id="name" placeholder="Enter Your name..!">
+        </label><br/>
+        <br/>
+        <label for="email">Email:<br/>
+           <input type="email" name="email" id="email" placeholder="Enter Your email..!">
+        </label><br/>
+        <br/>
+        <label for="contact">Contact:<br/>
+            <input type="phone" name="phone" id="phone" placeholder="Enter Your phone..!">
+         </label><br/>
+         <br/>
+         <label for="add">Address:<br/>
+            <input type="text" name="add" id="add" placeholder="Enter Your Address..!">
+         </label><br/>
+         <br/>
+        <input type="submit"  value="Send">
+    </form>
+    <script>
+    </script>
+</body>
+</html>
